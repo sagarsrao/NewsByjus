@@ -1,5 +1,7 @@
 package com.byjus.news.data
 
+import com.byjus.news.features.news.newsheadlinesmodels.ResponseNewsHeadlines
+import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -9,8 +11,8 @@ import javax.inject.Singleton
 @Singleton
 class DataManager @Inject constructor(private val factRestServiceApi: NewsRestServiceApi) {
 
-    /*fun getTheDataFacts(): Observable<ResFactDataList> {
+    fun getTheNewsHeadlines(countryName:String?,apikey:String?): Observable<ResponseNewsHeadlines> {
 
-        return factRestServiceApi.getTheFactDetails()
-    }*/
+        return factRestServiceApi.getTheNewsDetails(countryName,apikey)
+    }
 }

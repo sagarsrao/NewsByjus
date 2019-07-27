@@ -1,11 +1,11 @@
 package com.byjus.news.injection.component
 
 import com.byjus.news.injection.ConfigPersistent
-import com.byjus.news.injection.component.ActivityComponent
-import com.byjus.news.injection.component.AppComponent
+
 import com.byjus.news.injection.module.ActivityModule
 
 import dagger.Component
+import javax.inject.Singleton
 
 
 /**
