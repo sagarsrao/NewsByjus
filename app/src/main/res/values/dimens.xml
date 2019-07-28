@@ -5,6 +5,9 @@
 
     <dimen name="main_headline">20sp</dimen>
 
+    <dimen name ="detail_main_headline">29sp</dimen>
+
+    <dimen name="detail_short_content">14sp</dimen>
     <dimen name="sub_headline">12sp</dimen>
 
 
@@ -18,5 +21,8 @@
     <dimen name="dimen_two_hundred">200dp</dimen>
     <dimen name="app_bar_size">56dp</dimen>
     <dimen name="recyclerview_margin_top">72dp</dimen>
+
+    <dimen name="sixty_four_dp">64dp</dimen>
+
 
 </resources>

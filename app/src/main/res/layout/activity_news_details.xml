@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent" android:layout_height="match_parent"
+             android:id="@+id/frame_news_details"
+             android:background="@color/colorAccent"
+             tools:context=".features.newsdetails.NewsDetailsActivity">
+
+
+    <ImageView
+            android:id="@+id/iv_fullscreen_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:gravity="center"
+
+    />
+
+    <ProgressBar
+            android:id="@+id/progress_headlines_details"
+            android:visibility="gone"
+            android:indeterminateTint="@android:color/white"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progress="25"/>
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_margin="24dp"
+                 android:fitsSystemWindows="true">
+
+        <ImageView
+                android:id="@+id/iv_detail_nav_back"
+                android:layout_width="wrap_content"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_back_navigation"
+                android:layout_gravity="start"
+                android:layout_height="wrap_content"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom|end"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <LinearLayout
+                    android:id="@+id/fullscreen_content_controls"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+
+                <TextView
+                        android:id="@+id/tv_detail_main_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotoslab_bold"
+                        android:textColor="@color/main_headline_color"
+                        android:textSize="@dimen/detail_main_headline"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/sixty_four_dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tv_details_source_name"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/main_headline_color"
+                        android:layout_weight="5"
+                        android:textSize="@dimen/main_headline"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotoslab_regular"
+                />
+
+                <TextView
+                        android:id="@+id/tv_details_published_at"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/main_headline_color"
+                        android:textSize="@dimen/main_headline"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotoslab_regular"
+                />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/tv_detail_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/sub_headline_color"
+                        android:textSize="@dimen/detail_short_content"
+                        android:fontFamily="@font/robotoslab_regular"
+                />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</FrameLayout>

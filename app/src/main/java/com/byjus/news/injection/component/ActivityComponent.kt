@@ -2,6 +2,7 @@ package com.byjus.news.injection.component
 
 import com.byjus.news.features.base.BaseActivity
 import com.byjus.news.features.news.NewsActivity
+import com.byjus.news.features.newsdetails.NewsDetailsActivity
 import com.byjus.news.injection.PerActivity
 import com.byjus.news.injection.module.ActivityModule
 
@@ -16,6 +17,8 @@ import dagger.Subcomponent
 interface ActivityComponent {
     fun inject(baseActivity: BaseActivity)
     fun inject(newsActivity: NewsActivity)
+    fun inject(newsDetailsActivity: NewsDetailsActivity)
+
 
 
 }

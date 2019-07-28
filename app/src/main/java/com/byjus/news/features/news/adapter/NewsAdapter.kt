@@ -1,6 +1,7 @@
 package com.byjus.news.features.news.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.byjus.news.R
 import com.byjus.news.features.news.newsheadlinesmodels.ArticlesItem
+import com.byjus.news.features.newsdetails.NewsDetailsActivity
+import com.byjus.news.features.util.Constants
+import com.byjus.news.features.util.Constants.DESCRIPTION
 import kotlinx.android.synthetic.main.adapter_news_headlines.view.*
 
 
@@ -40,10 +44,18 @@ class NewsAdapter(
     class NewsHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bindData(newsData: List<ArticlesItem>, context: Context) {
 
+            var urlToImage: String? = null
+            var title: String? = null
+            var newsPublishedAt: String? = null
+            var newsSource:String? = null
+            var desc:String? = null
+
+
 
             for (newsItems in 0 until newsData.size) {
 
-                val urlToImage = newsData[newsItems].urlToImage
+                urlToImage = newsData[newsItems].urlToImage
+                desc = newsData[newsItems].description
                 if (urlToImage != null) {
                     if (urlToImage.isNotEmpty()) {
 
@@ -51,27 +63,43 @@ class NewsAdapter(
                     }
                 }
 
-                val title = newsData[newsItems].title
+                title = newsData[newsItems].title
                 if (title?.isNotEmpty()!!) {
                     view.tv_main_headline.text = title
                 }
 
-                val newsSource = newsData[newsItems].source
-                if (newsSource?.name?.isNotEmpty()!!) {
+                 newsSource = newsData[newsItems].source?.name
+                if (newsSource?.isNotEmpty()!!) {
 
-                    view.tv_news_source.text = newsSource.name
+                    view.tv_news_source.text = newsSource
                 }
 
-                val newsPublishedAt = newsData[newsItems].publishedAt
+                newsPublishedAt = newsData[newsItems].publishedAt
 
                 if (newsPublishedAt != null) {
                     if (newsPublishedAt.isNotEmpty()) {
 
-                        view.tv_news_published_at.text = newsPublishedAt
+                        view.tv_news_published_at.text = newsPublishedAt.substring(0,10)
                     }
                 }
 
 
+            }
+
+
+            /*onClick of item*/
+            view.card_news.setOnClickListener {
+
+                val detailsActivity = Intent(context, NewsDetailsActivity::class.java)
+
+                detailsActivity.putExtra(Constants.URL_TO_IMAGE, urlToImage)
+                detailsActivity.putExtra(Constants.TITLE, title)
+                detailsActivity.putExtra(Constants.PUBLISHED_AT, newsPublishedAt?.substring(0,10))
+                detailsActivity.putExtra(Constants.SOURCE_NAME, newsSource)
+                detailsActivity.putExtra(DESCRIPTION,desc)
+
+
+                context.startActivity(detailsActivity)
             }
 
 
