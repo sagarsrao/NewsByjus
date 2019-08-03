@@ -125,7 +125,28 @@ class NewsDetailsActivity : BaseActivity(), NewsDetailsActivityMVPView {
                 tv_detail_desc.text = desc
             }
         } else {
-            showInternetErrorMessage()
+            val newsPic = intent.extras.getString(Constants.URL_TO_IMAGE)
+            val title = intent.extras.getString(Constants.TITLE)
+            val sourceName = intent.extras.getString(Constants.SOURCE_NAME)
+            val publishedAT = intent.extras.getString(Constants.PUBLISHED_AT)
+            val desc = intent.extras.getString(Constants.DESCRIPTION)
+            if (newsPic.isNotEmpty()) {
+                Glide.with(this).load(newsPic).into(iv_fullscreen_content)
+            }
+            if (title.isNotEmpty()) {
+                Log.d("title", "" + title)
+                tv_detail_main_title.text = title
+            }
+            if (sourceName.isNotEmpty()) {
+                tv_details_source_name.text = sourceName
+            }
+            if (publishedAT.isNotEmpty()) {
+                tv_details_published_at.text = publishedAT
+            }
+            if(desc.isNotEmpty()) {
+                tv_detail_desc.text = desc
+            }
+           // showInternetErrorMessage()
         }
 
         iv_detail_nav_back.setOnClickListener {

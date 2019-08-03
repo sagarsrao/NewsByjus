@@ -15,6 +15,7 @@ import com.byjus.news.data.database.NewsDAO
 import com.byjus.news.data.local.PreferencesHelper
 import com.byjus.news.features.base.BaseActivity
 import com.byjus.news.features.news.adapter.NewsAdapter
+import com.byjus.news.features.news.adapter.NewsOfflineAdapter
 import com.byjus.news.features.news.newsheadlinesmodels.ArticlesItem
 import com.byjus.news.features.news.newsheadlinesmodels.ResponseNewsHeadlines
 import com.byjus.news.features.util.NetworkUtil
@@ -39,8 +40,7 @@ class NewsActivity : BaseActivity(), NewsActivityMVPView {
 
         viewManager = LinearLayoutManager(this)
 
-        //insert(resHeadlines.articles)
-        //newsDAO?.insertAll(resHeadlines.articles!!)
+
 
 
         viewAdapter = NewsAdapter(resHeadlines.articles, this)
@@ -70,11 +70,10 @@ class NewsActivity : BaseActivity(), NewsActivityMVPView {
                     resHeadlines.articles[articleItems]?.source?.name!!,
                     resHeadlines.articles[articleItems]?.title!!
                 )
-                Log.d("articleRoomList", "" + articleRoomList)
 
                 newsDAO?.insertAll(listOf(articleRoomList))
 
-                Log.d("GETTHENEWS",""+newsDAO?.getAll())
+
 
             }
 
@@ -117,7 +116,24 @@ class NewsActivity : BaseActivity(), NewsActivityMVPView {
         if (NetworkUtil.isNetworkConnected(this@NewsActivity)) {
             mPresenter.getHeadlines("us", BuildConfig.MY_NEWS_API_KEY)
         } else {
-            showInternetErrorMessage()
+
+
+            viewManager = LinearLayoutManager(this)
+            viewAdapter = NewsOfflineAdapter(newsDAO!!.getAll(),this)
+
+            rv_news.apply {
+
+                setHasFixedSize(true)
+
+                layoutManager = viewManager
+
+                adapter = viewAdapter
+
+                adapter!!.notifyDataSetChanged()
+
+            }
+
+            //showInternetErrorMessage()
         }
 
 
