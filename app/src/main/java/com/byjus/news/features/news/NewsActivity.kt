@@ -2,14 +2,20 @@ package com.byjus.news.features.news
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.annotation.WorkerThread
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.byjus.news.BuildConfig
 import com.byjus.news.R
+import com.byjus.news.data.database.LocalDB
+import com.byjus.news.data.database.News
+import com.byjus.news.data.database.NewsDAO
 import com.byjus.news.data.local.PreferencesHelper
 import com.byjus.news.features.base.BaseActivity
 import com.byjus.news.features.news.adapter.NewsAdapter
+import com.byjus.news.features.news.newsheadlinesmodels.ArticlesItem
 import com.byjus.news.features.news.newsheadlinesmodels.ResponseNewsHeadlines
 import com.byjus.news.features.util.NetworkUtil
 import com.google.android.material.snackbar.Snackbar
@@ -33,7 +39,13 @@ class NewsActivity : BaseActivity(), NewsActivityMVPView {
 
         viewManager = LinearLayoutManager(this)
 
+        //insert(resHeadlines.articles)
+        //newsDAO?.insertAll(resHeadlines.articles!!)
+
+
         viewAdapter = NewsAdapter(resHeadlines.articles, this)
+
+
 
         rv_news.apply {
 
@@ -47,12 +59,36 @@ class NewsActivity : BaseActivity(), NewsActivityMVPView {
 
         }
 
+
+        try {
+            for (articleItems in 0 until resHeadlines.articles!!.size) {
+
+                val articleRoomList = News(
+                    resHeadlines.articles[articleItems]?.publishedAt!!,
+                    resHeadlines.articles[articleItems]?.urlToImage!!,
+                    resHeadlines.articles[articleItems]?.description!!,
+                    resHeadlines.articles[articleItems]?.source?.name!!,
+                    resHeadlines.articles[articleItems]?.title!!
+                )
+                Log.d("articleRoomList", "" + articleRoomList)
+
+                newsDAO?.insertAll(listOf(articleRoomList))
+
+                Log.d("GETTHENEWS",""+newsDAO?.getAll())
+
+            }
+
+        } catch (e: Exception) {
+        }
+
     }
 
     override fun layoutId(): Int {
         return R.layout.activity_news
     }
 
+
+    var newsDAO: NewsDAO? = null
     override fun showError(error: Throwable) {
 
         val mSnackBar = Snackbar.make(news_coordinator_layout, error.toString(), Snackbar.LENGTH_LONG)
@@ -76,6 +112,7 @@ class NewsActivity : BaseActivity(), NewsActivityMVPView {
         mPresenter.attachView(this)
         mPreferences = PreferencesHelper(this@NewsActivity)
 
+        newsDAO = LocalDB.getDatabase(this).newsDao()
 
         if (NetworkUtil.isNetworkConnected(this@NewsActivity)) {
             mPresenter.getHeadlines("us", BuildConfig.MY_NEWS_API_KEY)

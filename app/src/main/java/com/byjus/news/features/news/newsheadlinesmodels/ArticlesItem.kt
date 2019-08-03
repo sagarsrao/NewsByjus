@@ -1,5 +1,7 @@
 package com.byjus.news.features.news.newsheadlinesmodels
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
 data class ArticlesItem(
@@ -8,7 +10,7 @@ data class ArticlesItem(
 	val publishedAt: String? = null,
 
 	@field:SerializedName("author")
-	val author: Any? = null,
+	val author: String? = null,
 
 	@field:SerializedName("urlToImage")
 	val urlToImage: String? = null,
@@ -17,6 +19,7 @@ data class ArticlesItem(
 	val description: String? = null,
 
 	@field:SerializedName("source")
+	@NonNull
 	val source: Source? = null,
 
 	@field:SerializedName("title")
